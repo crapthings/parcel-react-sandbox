@@ -9,6 +9,7 @@ import {
 import {
   Layout,
   Home,
+  About,
 } from './components'
 
 class Root extends Component {
@@ -17,6 +18,7 @@ class Root extends Component {
       <Router history={app.route}>
         <Switch>
           <Route path='/' component={Layout(Home)} exact />
+          <Route path='/about' component={Layout(About)} />
         </Switch>
       </Router>
     )

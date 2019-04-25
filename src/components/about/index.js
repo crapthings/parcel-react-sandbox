@@ -1,9 +1,9 @@
 @observer
-export default class Home extends Component {
+export default class About extends Component {
   render() {
     return (
-      <div id='home'>
-        <h1>Home</h1>
+      <div id='about'>
+        <h1>About</h1>
         <p>{app.ui.header}</p>
         <p>{app.ui.aside}</p>
         <p>{app.ui.main}</p>

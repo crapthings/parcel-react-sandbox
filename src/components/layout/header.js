@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 @observer
 export default class Header extends Component {
   render() {
@@ -5,6 +7,10 @@ export default class Header extends Component {
       <header id='header'>
         {app.ui.header}
         {app.ui.text}
+        <div>
+          <Link to='/'>home</Link>
+          <Link to='/about'>about</Link>
+        </div>
       </header>
     )
   }
