@@ -1,6 +1,6 @@
 _ = require('lodash')
 moment = require('moment')
-faker = require('faker')
+// faker = require('faker')
 
 React = require('react')
 Component = React.Component
