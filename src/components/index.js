@@ -1,4 +1,5 @@
+export { default as Auth } from './auth/auth'
+export { default as Login } from './auth/login'
 export { default as Layout } from './layout'
 export { default as Home } from './home'
 export { default as About } from './about'
-export { default as Login } from './login'

@@ -12,6 +12,8 @@ moment = require('moment')
 nanoid = require('nanoid')
 faker = require('faker')
 
+const PORT = process.env.PORT || 3000
+
 const server = express()
 const router = express.Router()
 
@@ -27,14 +29,10 @@ _.each(routes, route => {
 })
 
 server.use(function(err, req, res, next) {
-  if (!err)
-    return next()
-
-  console.log(err)
-
-  res.json({ err })
+  if (!err) return next()
+  res.status(500).json({ err })
 })
 
-server.listen(process.env.PORT, () => {
-  console.log(`server is running at ${process.env.PORT}`)
+server.listen(PORT, () => {
+  console.log(`server is running at ${PORT}`)
 })

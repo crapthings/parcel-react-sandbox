@@ -10,6 +10,9 @@ MUI = require('@material-ui/core')
 observable = require('mobx').observable
 observer = require('mobx-react').observer
 
+AxiosGet = require('react-axios').Get
+AxiosPost = require('react-axios').Post
+
 app = require('./context').default.app
 
 require('./routes')

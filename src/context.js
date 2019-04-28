@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { createBrowserHistory } from 'history'
 
 const route = createBrowserHistory({})
@@ -14,9 +15,18 @@ const ui = observable({
   }
 })
 
+const token = localStorage.getItem('token')
+
+const _axios = axios.create({
+  baseURL: 'http://localhost:3000/api/',
+  timeout: 3000,
+  headers: { token: token }
+})
+
 const app = {
   route,
   ui,
+  _axios,
 }
 
 route.listen(function () {})

@@ -19,15 +19,17 @@ module.exports = function ({ router }) {
   return router
 
     .post('/login', async function (req, res, next) {
-      console.log(tokens)
-
       const { token } = req.headers
+      const { username, password } = req.body
+
+      if ((!token) || (!username && !password)) {
+        return next('login failed')
+      }
 
       if (tokens[token]) {
         return res.json({ token, user: tokens[token] })
       }
 
-      const { username, password } = req.body
       const hash = _.get(fakeLogins, `${username}.hash`)
       const checkPassword = await bcrypt.compare(password, hash)
 
