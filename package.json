@@ -15,7 +15,6 @@
     "@material-ui/core": "^3.9.3",
     "@material-ui/icons": "^3.0.2",
     "axios": "^0.18.0",
-    "core-js": "^3.0.1",
     "faker": "^4.1.0",
     "history": "^4.9.0",
     "lodash": "^4.17.11",

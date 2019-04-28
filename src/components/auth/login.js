@@ -14,7 +14,7 @@ export default class Login extends Component {
           <div>
             <label>
                Username
-              <input type='text' />
+              <input type='text' autoFocus />
             </label>
           </div>
 

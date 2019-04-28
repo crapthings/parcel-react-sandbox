@@ -1,3 +1,6 @@
+import Login from './login'
+
+@observer
 class Auth extends Component {
   render() {
     return(
@@ -12,7 +15,11 @@ class Auth extends Component {
               <div>{error}</div>
             )
           } else if (response) {
-            return this.props.children
+            if (app.ctx.currentUser.username) {
+              return this.props.children
+            } else {
+              return <Login />
+            }
           } else {
             return (
               <div>loading</div>

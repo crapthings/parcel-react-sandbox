@@ -1,3 +1,7 @@
+#aside {
+  width: 220px;
+}
+
 .flex {
   display: flex;
 }

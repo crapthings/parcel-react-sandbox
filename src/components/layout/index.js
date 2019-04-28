@@ -1,6 +1,5 @@
 import Header from './header'
-import Aside from './aside'
-import Content from './content'
+import Main from './main'
 
 @observer
 class Layout extends Component {
@@ -8,12 +7,9 @@ class Layout extends Component {
     return (
       <div id='layout'>
         <Header />
-        <div id='main'>
-          <Aside />
-          <Content>
-            {this.props.children}
-          </Content>
-        </div>
+        <Main>
+          {this.props.children}
+        </Main>
       </div>
     )
   }
