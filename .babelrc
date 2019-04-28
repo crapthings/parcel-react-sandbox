@@ -2,6 +2,7 @@
   "plugins": [
     ["@babel/plugin-proposal-decorators", { "legacy": true }],
     ["@babel/plugin-proposal-class-properties"],
+    ["@babel/plugin-transform-runtime", { "regenerator": true }],
     ["@babel/plugin-proposal-pipeline-operator", { "proposal":"minimal" }]
   ]
 }

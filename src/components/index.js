@@ -1,3 +1,4 @@
+export { default as Err } from './err'
 export { default as Auth } from './auth/auth'
 export { default as Login } from './auth/login'
 export { default as Layout } from './layout'

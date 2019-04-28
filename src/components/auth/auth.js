@@ -1,27 +1,23 @@
 class Auth extends Component {
   render() {
     return(
-      <AxiosPost url='login'>
+      <AxiosPost url='token'>
         {(error, response, isLoading, makeRequest, axios) => {
-          console.log(error, response, isLoading)
-
           if (isLoading) {
             return (
-              <div>waiting for login</div>
+              <div>loading</div>
             )
-          }
-
-          if (error) {
+          } else if (error) {
             return (
-              <div>{response.data.err}</div>
+              <div>{error}</div>
+            )
+          } else if (response) {
+            return this.props.children
+          } else {
+            return (
+              <div>loading</div>
             )
           }
-
-          return (
-            <div>
-              {this.props.children}
-            </div>
-          )
         }}
       </AxiosPost>
     )

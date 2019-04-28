@@ -29,6 +29,7 @@ _.each(routes, route => {
 })
 
 server.use(function(err, req, res, next) {
+  if (req.url == '/api/logs') return next()
   if (!err) return next()
   res.status(500).json({ err })
 })
