@@ -4,7 +4,7 @@ import Login from './login'
 class Auth extends Component {
   render() {
     return(
-      <AxiosPost url='token'>
+      <Axios.Post url='token'>
         {(error, response, isLoading, makeRequest, axios) => {
           if (isLoading) {
             return (
@@ -26,7 +26,7 @@ class Auth extends Component {
             )
           }
         }}
-      </AxiosPost>
+      </Axios.Post>
     )
   }
 }

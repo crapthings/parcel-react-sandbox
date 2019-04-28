@@ -14,8 +14,12 @@ export default class Header extends Component {
             <div>logo</div>
             <div className='flex flex-1'></div>
             <div>
-              <Link to='/profile'>{currentUser.username}</Link>
-              <a href="/logout" onClick={this.logout}>logout</a>
+              <div>
+                <Link to='/profile'>{currentUser.username}</Link>
+              </div>
+              <div>
+                <a href="/logout" onClick={this.logout}>logout</a>
+              </div>
             </div>
           </>
         ) : <Link to='/login'>login</Link>}

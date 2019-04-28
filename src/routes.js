@@ -15,6 +15,7 @@ import {
   Layout,
   Home,
   About,
+  List,
 } from './components'
 
 class Root extends Component {
@@ -48,6 +49,7 @@ class Root extends Component {
             <Route path='/' component={Auth(Layout(Home))} exact />
             <Route path='/login' component={Login} />
             <Route path='/secret1' component={Auth(Layout(About))} />
+            <Route path='/list' component={Auth(Layout(List))} />
           </Switch>
         </Router>
       </AxiosProvider>

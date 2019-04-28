@@ -49,6 +49,8 @@ const logout = function () {
   route.push('/')
 }
 
+const refresh = {}
+
 const app = {
   ctx,
   ui,
@@ -56,6 +58,7 @@ const app = {
   axios,
   login,
   logout,
+  refresh,
 }
 
 route.listen(function () {})
