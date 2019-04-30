@@ -16,20 +16,14 @@ const axios = _axios.create({
   timeout: 3000,
 })
 
-axios.interceptors.request.use(function (config) {
-  config.headers.common.token = localStorage.getItem('token')
-  return config
+axios.interceptors.request.use(function (request) {
+  request.headers.common.token = localStorage.getItem('token')
+  return request
 }, function (error) {
   return Promise.reject(error)
 })
 
 axios.interceptors.response.use(function (response) {
-  if (/\/api\/token/.test(response.request.responseURL)) {
-    const { data: { currentUser } } = response
-    if (currentUser) {
-      app.ctx.currentUser = currentUser
-    }
-  }
   return response
 }, function (error) {
   ui.err = 'xhr failed'
@@ -38,8 +32,11 @@ axios.interceptors.response.use(function (response) {
 
 const login = async function (username, password) {
   const { data: { token, currentUser } } = await app.axios.post('/login', { username, password })
-  localStorage.setItem('token', token)
+  // 用 autorun 处理这部分比较屌
+  app.ctx.token = token
   app.ctx.currentUser = currentUser
+  localStorage.setItem('token', token)
+  localStorage.setItem('currentUser', JSON.stringify(currentUser))
   route.push('/')
 }
 
