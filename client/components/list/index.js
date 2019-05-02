@@ -3,12 +3,12 @@ export default class List extends Component {
   render() {
     return (
       <div id='list'>
-        <Axios name='list' url='list'>
-          {(data, { refresh, refreshToken }) => {
+        <App.Axios name='list' url='list'>
+          {({ result: { list } }, { refresh, refreshToken }) => {
             return (
               <div>
                 <button onClick={refresh}>refresh {refreshToken}</button>
-                {data.map(item => {
+                {list.map(item => {
                   return (
                     <div key={item._id}>
                       <div>{item.title}</div>
@@ -19,7 +19,7 @@ export default class List extends Component {
               </div>
             )
           }}
-        </Axios>
+        </App.Axios>
       </div>
     )
   }

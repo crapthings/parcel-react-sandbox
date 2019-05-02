@@ -11,10 +11,13 @@ import {
 import { AxiosProvider } from 'react-axios'
 
 import {
+  NotFound,
   Err,
   Auth,
-  Login,
   Layout,
+  Register,
+  Login,
+  My,
   Home,
   About,
   List,
@@ -52,10 +55,13 @@ class Root extends Component {
       <AxiosProvider instance={app.axios}>
         <Router history={app.route}>
           <Switch>
-            <Route path='/' component={Auth(Layout(Home))} exact />
+            <Route path='/' component={Home |> Layout |> Auth} exact />
             <Route path='/login' component={Login} />
-            <Route path='/secret1' component={Auth(Layout(About))} />
-            <Route path='/list' component={Auth(Layout(List))} />
+            <Route path='/register' component={Register} />
+            <Route path='/my' component={My |> Layout |> Auth} />
+            <Route path='/secret1' component={About |> Layout |> Auth} />
+            <Route path='/list' component={List |> Layout |> Auth} />
+            <Route component={NotFound} />
           </Switch>
         </Router>
       </AxiosProvider>

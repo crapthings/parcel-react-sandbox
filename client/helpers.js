@@ -1,46 +1,98 @@
-import _axios from 'axios'
+import { toJS } from 'mobx'
 
-app.axios = _axios.create({
-  baseURL: 'http://localhost:3000/api/',
-  timeout: 5000,
-})
+app.register = async function (username, password) {
+  app.ui.isLogging = true
 
-app.axios.interceptors.request.use(function (request) {
-  request.headers.common.token = localStorage.getItem('token')
-  return request
-}, function (error) {
-  return Promise.reject(error)
-})
+  const { data: { err, result } } = await app.axios.post('/register', { username, password })
 
-app.axios.interceptors.response.use(function (response) {
-  return response
-}, function (error) {
-  app.ui.err = 'xhr failed'
-  return Promise.reject(error)
-})
+  if (err) {
+    app.ui.isLogging = false
+    return app.ui.err = err
+  }
 
-app.login = async function (username, password) {
-  const { data: { token, currentUser } } = await app.axios.post('/login', { username, password })
-  // 用 autorun 处理这部分比较屌
+  const { token, currentUser } = result
+
+  app.ui.isLogging = false
   app.ctx.token = token
   app.ctx.currentUser = currentUser
-  localStorage.setItem('token', app.ctx.token)
-  localStorage.setItem('currentUser', JSON.stringify(app.ctx.currentUser))
-  app.route.push('/')
+  app.route.replace('/')
 }
 
-app.logout = function () {
-  app.ctx.token = null
-  app.ctx.currentUser = {}
-  localStorage.removeItem('token')
-  localStorage.removeItem('currentUser')
-  app.route.push('/')
+app.login = async function (username, password) {
+  app.ui.isLogging = true
+
+  const { data: { err, result } } = await app.axios.post('/login', { username, password })
+
+  if (err) {
+    app.ui.isLogging = false
+    return app.ui.err = err
+  }
+
+  const { token, currentUser } = result
+
+  app.ui.isLogging = false
+  app.ctx.token = token
+  app.ctx.currentUser = currentUser
+  app.route.replace('/')
 }
 
 app.loginWithToken = async function () {
   const token = localStorage.getItem('token')
-  if (!token) return
-  const { data: { currentUser } } = await app.axios.post('/token', { token })
-  app.ctx.currentUser = currentUser
+
+  if (!token) {
+    return app.ui.isLogging = false
+  }
+
+  app.ui.isLogging = true
+
+  const { data: { err, result } } = await app.axios.post('/token', { token })
+
+  if (err) {
+    app.ui.isLogging = false
+    return app.ui.err = err
+  }
+
+  const { currentUser } = result
+
+  app.ui.isLogging = false
   app.ctx.token = token
+  app.ctx.currentUser = currentUser
 }
+
+app.password = async function (password, newPassword) {
+  app.ui.isLogging = true
+
+  const { data: { err } } = await app.axios.post('/password', { password, newPassword })
+
+  if (err) {
+    app.ui.isLogging = false
+    return app.ui.err = err
+  }
+
+  app.ui.isLogging = false
+  app.ctx.token = null
+  app.ctx.currentUser = {}
+  app.route.replace('/')
+}
+
+app.logout = function () {
+  app.ui.isLogging = false
+  app.ctx.token = null
+  app.ctx.currentUser = {}
+  app.route.replace('/')
+}
+
+autorun(() => {
+  const { token, currentUser: _currentUser } = app.ctx
+  const currentUser = toJS(_currentUser)
+
+  if (token && currentUser._id) {
+    localStorage.setItem('token', token)
+    localStorage.setItem('currentUser', JSON.stringify(currentUser))
+  } else if (!token && !currentUser._id) {
+    localStorage.removeItem('token')
+    localStorage.removeItem('currentUser')
+  }
+}, {
+  delay: 50,
+})

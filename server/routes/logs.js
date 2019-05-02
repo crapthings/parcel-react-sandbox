@@ -3,10 +3,10 @@ module.exports = function ({ router }) {
   return router
 
     .post('/logs', function (req, res) {
-      db.collection('__logs').insertOne({
-        header: req.headers,
-        app: req.body,
-      })
+      const { headers: header, body: app } = req
+
+      db.collection('__logs').insertOne({ header, app })
+
       return res.sendStatus(200)
     })
 

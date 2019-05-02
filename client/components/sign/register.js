@@ -1,16 +1,16 @@
 @observer
-export default class Login extends Component {
-  login = async evt => {
+export default class Register extends Component {
+  onSubmit = async evt => {
     evt.preventDefault()
     const username = evt.target[0].value
     const password = evt.target[1].value
-    app.login(username, password)
+    app.register(username, password)
   }
 
   render() {
     return (
       <div>
-        <form onSubmit={this.login}>
+        <form onSubmit={this.onSubmit}>
           <div>
             <label>
                Username
@@ -26,7 +26,11 @@ export default class Login extends Component {
           </div>
 
           <div>
-            <input type='submit' />
+            <input type='submit' value='Register' />
+          </div>
+
+          <div>
+            <Link to='/login'>Login</Link>
           </div>
         </form>
         <div>{app.ui.err}</div>

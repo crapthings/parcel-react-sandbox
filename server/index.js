@@ -52,11 +52,7 @@ async function boot() {
   })
 
   // error hook
-  server.use((err, req, res, next) => {
-    if (req.url == '/api/logs') return next()
-    if (!err) return next()
-    res.status(500).json({ err })
-  })
+  server.use(require('./error'))
 
   server.listen(PORT, async () => {
     console.log(`server is running at ${PORT}`)

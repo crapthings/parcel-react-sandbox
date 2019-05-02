@@ -10,28 +10,35 @@ module.exports = function ({ router }) {
       const { username, password } = req.body
 
       if (!username || !password)
-        return next('missing username or password')
+        return next('username and password required')
 
       const isUserExist = await Users.findOne({ username })
 
       if (isUserExist)
-        return next('username exist')
+        return next('username already exists')
 
-      const user = {
+      const token = nanoid()
+
+      const currentUser = {
         username,
         createdAt: new Date(),
         services: {
           hash: hashSync(password),
           tokens: [{
-            token: nanoid(),
+            token,
             expiredAt: moment(new Date()).add(process.env.EXPIRED_IN_DAYS || 15, 'd').startOf('day').toDate(),
           }]
         }
       }
 
-      const result = await Users.insertOne(user)
+      await Users.insertOne(currentUser)
 
-      return res.json(result)
+      const result = {
+        token,
+        currentUser: _.omit(currentUser, 'services'),
+      }
+
+      return res.json({ result })
     })
 
     .post('/login', async function (req, res, next) {
@@ -61,49 +68,24 @@ module.exports = function ({ router }) {
         $push: { 'services.tokens': { token, expiredAt } }
       })
 
-      return res.json({ token, currentUser })
-    })
+      const result = {
+        token,
+        currentUser
+      }
 
-    .post('/password', async function (req, res, next) {
-      const { username, password, newPassword } = req.body
-
-      if (!username || !password || !newPassword)
-        return next('require username, password and newPassword')
-
-      const isUserExist = await Users.findOne({ username })
-
-      if (!isUserExist)
-        return next('username doesn\'t exist')
-
-      const _hash = _.get(isUserExist, 'services.hash')
-
-      const isSamePassword = await bcrypt.compare(password, _hash)
-
-      if (!isSamePassword)
-        return next('wrong password')
-
-      const hash = hashSync(newPassword)
-
-      const result = await Users.findOneAndUpdate({ _id: isUserExist._id }, {
-        $set: {
-          'services.tokens': [],
-          'services.hash': hash,
-        }
-      })
-
-      return res.json(result)
+      return res.json({ result })
     })
 
     .post('/token', async function (req, res, next) {
       const { token } = req.body
 
       if (!token)
-        return next('require token')
+        return next('token required')
 
       const isTokenExist = await Users.findOne({ 'services.tokens.token': token })
 
       if (!isTokenExist)
-        return next('token not found')
+        return next('token doesn\'t exist')
 
       const isTokenExpired = _.chain(isTokenExist)
         .get('services.tokens')
@@ -117,12 +99,56 @@ module.exports = function ({ router }) {
           $pull: { 'services.tokens': { token } }
         })
 
-        return next('login expired')
+        return next('token has expired')
       }
 
       const currentUser = _.omit(isTokenExist, 'services')
 
-      return res.json({ token, currentUser })
+      const result = {
+        token,
+        currentUser
+      }
+
+      return res.json({ result })
+    })
+
+    .post('/password', async function (req, res, next) {
+      const { password, newPassword } = req.body
+
+      if (!password || !newPassword)
+        return next('password and newPassword required')
+
+      console.log(this.currentUser)
+
+      if (!this.currentUser)
+        return next('failed to change password')
+
+      const { _id } = this.currentUser
+
+      console.log(_id)
+
+      const isUserExist = await Users.findOne({ _id })
+
+      if (!isUserExist)
+        return next('username doesn\'t exist')
+
+      const _hash = _.get(isUserExist, 'services.hash')
+
+      const isSamePassword = await bcrypt.compare(password, _hash)
+
+      if (!isSamePassword)
+        return next('wrong password')
+
+      const hash = hashSync(newPassword)
+
+      await Users.findOneAndUpdate({ _id: isUserExist._id }, {
+        $set: {
+          'services.tokens': [],
+          'services.hash': hash,
+        }
+      })
+
+      return res.sendStatus(200)
     })
 
 }

@@ -57,7 +57,7 @@ class Axios extends Component {
   }
 }
 
-App.Axios = Axios
+App.Fetch = App.Axios = Axios
 App.Request = Request
 App.Get = Get
 App.Post = Post
