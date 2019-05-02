@@ -4,6 +4,7 @@ module.exports = ({ db }) => async (req, res, next) => {
     '/api/status',
     '/api/register',
     '/api/login',
+    '/api/token',
     '/api/logs',
   ], req.url)) return next()
 

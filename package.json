@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "parcel ./src/index.html",
+    "dev": "parcel ./client/index.html",
     "dev-server": "nodemon ./server/index.js",
-    "build": "parcel build ./src/index.js"
+    "build": "parcel build ./client/index.js"
   },
   "keywords": [],
   "author": "",

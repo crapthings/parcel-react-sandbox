@@ -1,6 +1,6 @@
 import { Request, Get, Post } from 'react-axios'
 
-export default class Axios extends Component {
+class Axios extends Component {
   state = {
     refreshToken: Date.now()
   }
@@ -57,6 +57,7 @@ export default class Axios extends Component {
   }
 }
 
-Axios.Request = Request
-Axios.Get = Get
-Axios.Post = Post
+App.Axios = Axios
+App.Request = Request
+App.Get = Get
+App.Post = Post

@@ -1,3 +1,5 @@
+import { createBrowserHistory } from 'history'
+
 import { render } from 'react-dom'
 
 import {
@@ -16,7 +18,11 @@ import {
   Home,
   About,
   List,
-} from './components'
+} from './'
+
+app.route = createBrowserHistory({})
+
+app.route.listen(function () {})
 
 class Root extends Component {
   state = {

@@ -94,6 +94,37 @@ module.exports = function ({ router }) {
       return res.json(result)
     })
 
+    .post('/token', async function (req, res, next) {
+      const { token } = req.body
+
+      if (!token)
+        return next('require token')
+
+      const isTokenExist = await Users.findOne({ 'services.tokens.token': token })
+
+      if (!isTokenExist)
+        return next('token not found')
+
+      const isTokenExpired = _.chain(isTokenExist)
+        .get('services.tokens')
+        .find({ token })
+        .value()
+
+      const expired = moment(isTokenExpired.expiredAt).diff(new Date(), 'days')
+
+      if (expired <= 0) {
+        await Users.findOneAndUpdate({ 'services.tokens.token': token }, {
+          $pull: { 'services.tokens': { token } }
+        })
+
+        return next('login expired')
+      }
+
+      const currentUser = _.omit(isTokenExist, 'services')
+
+      return res.json({ token, currentUser })
+    })
+
 }
 
 
