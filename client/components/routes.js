@@ -21,6 +21,7 @@ import {
   Home,
   About,
   List,
+  Files,
 } from './'
 
 app.route = createBrowserHistory({})
@@ -61,6 +62,7 @@ class Root extends Component {
             <Route path='/my' component={My |> Layout |> Auth} />
             <Route path='/secret1' component={About |> Layout |> Auth} />
             <Route path='/list' component={List |> Layout |> Auth} />
+            <Route path='/files' component={Files |> Layout |> Auth} />
             <Route component={NotFound} />
           </Switch>
         </Router>
