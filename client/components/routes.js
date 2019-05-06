@@ -57,6 +57,7 @@ class Root extends Component {
         <Router history={app.route}>
           <Switch>
             <Route path='/' component={Home |> Layout |> Auth} exact />
+            <Route path='/index.html' component={Home |> Layout |> Auth} />
             <Route path='/login' component={Login} />
             <Route path='/register' component={Register} />
             <Route path='/my' component={My |> Layout |> Auth} />

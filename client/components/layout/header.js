@@ -11,9 +11,11 @@ export default class Header extends Component {
       <div className='flex' id='header'>
         {currentUser.username ? (
           <>
-            <div>logo</div>
-            <div className='flex flex-1'></div>
             <div>
+              <Link to='/'>logo</Link>
+            </div>
+            <div className='flex flex-1'></div>
+            <div className='flex'>
               <div>
                 <Link to='/my'>{currentUser.username}</Link>
               </div>

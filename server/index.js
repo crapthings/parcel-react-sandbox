@@ -13,6 +13,7 @@ _ = require('lodash')
 moment = require('moment')
 nanoid = require('nanoid')
 faker = require('faker')
+axios = require('axios')
 
 db = null
 
@@ -25,7 +26,6 @@ const router = express.Router()
 server.use(cors())
 server.use(bodyParser.urlencoded({ extended: false }))
 server.use(bodyParser.json())
-server.use(express.static('public'))
 
 const routes = fs.readdirSync(path.resolve(__dirname, 'routes'))
 
@@ -43,7 +43,7 @@ async function boot() {
   require('./mongo')(db)
 
   // auth hook
-  server.use(require('./auth')({ db }))
+  server.use(require('./hooks/auth')({ db }))
 
   // mount each router
   _.each(routes, route => {
@@ -51,8 +51,17 @@ async function boot() {
     server.use('/api', require(__module__)({ router }))
   })
 
+  if (process.env.NODE_ENV !== 'production') {
+    const root = '../dist'
+    const index = 'index.html'
+    server.use('/', express.static(root, { index }))
+    server.use(require('./dev/fallback')(index, { root }))
+  }
+
+  server.use('/private', express.static('private'))
+
   // error hook
-  server.use(require('./error'))
+  server.use(require('./hooks/error'))
 
   server.listen(PORT, async () => {
     console.log(`server is running at ${PORT}`)

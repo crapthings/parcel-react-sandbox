@@ -2,7 +2,7 @@
   "name": "@crapthings/parcel-react-sandbox",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "parcel.js",
   "scripts": {
     "dev": "parcel ./client/index.html",
     "build": "parcel build ./client/index.js"

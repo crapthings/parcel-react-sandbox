@@ -1,12 +1,14 @@
 module.exports = function ({ db }) {
   return async function (req, res, next) {
-    if (_.includes([
+    if (!/^\/api/.test(req.url) || _.includes([
       '/api/status',
       '/api/register',
       '/api/login',
       '/api/token',
       '/api/logs',
-    ], req.url)) return next()
+    ], req.url)) {
+      return next()
+    }
 
     const Users = db.collection('users')
 
