@@ -6,6 +6,14 @@ module.exports = function ({ router }) {
 
   return router
 
+    .get('/users', async function (req, res) {
+      const results = await db.users.fetch({}, {
+        projection: { services: false },
+      })
+
+      return res.json(results)
+    })
+
     .post('/register', async function (req, res, next) {
       const { username, password } = req.body
 
