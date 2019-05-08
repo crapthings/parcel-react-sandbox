@@ -3,8 +3,6 @@ require('dotenv').config()
 const fs = require('fs')
 const path = require('path')
 
-const MongoClient = require('mongodb').MongoClient
-
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
@@ -17,7 +15,6 @@ axios = require('axios')
 
 db = null
 
-const MONGO_URL = process.env.MONGO_URL || 'mongodb://localhost:27017/__test__'
 const PORT = process.env.PORT || 3000
 
 const server = express()
@@ -32,18 +29,10 @@ const routes = fs.readdirSync(path.resolve(__dirname, 'routes'))
 boot()
 
 async function boot() {
-
-  const mongo = await MongoClient.connect(MONGO_URL, {
-    useNewUrlParser: true,
-  })
-
-  db = mongo.db()
-
-  // build mongo index
-  require('./mongo')(db)
+  db = await require('./db')()
 
   // auth hook
-  server.use(require('./hooks/auth')({ db }))
+  server.use(require('./hooks/auth'))
 
   // mount each router
   _.each(routes, route => {
@@ -52,7 +41,7 @@ async function boot() {
   })
 
   if (process.env.NODE_ENV !== 'production') {
-    const root = '../dist'
+    const root = '../client/dist'
     const index = 'index.html'
     server.use('/', express.static(root, { index }))
     server.use(require('./dev/fallback')(index, { root }))
@@ -66,5 +55,4 @@ async function boot() {
   server.listen(PORT, async () => {
     console.log(`server is running at ${PORT}`)
   })
-
 }
