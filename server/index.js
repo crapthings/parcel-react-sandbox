@@ -12,19 +12,20 @@ moment = require('moment')
 nanoid = require('nanoid')
 faker = require('faker')
 axios = require('axios')
+joi = require('@hapi/joi')
 
 db = null
+check = require('./utils/helpers').check
 
 const PORT = process.env.PORT || 3000
 
 const server = express()
 const router = express.Router()
+const routes = fs.readdirSync(path.resolve(__dirname, 'routes'))
 
 server.use(cors())
 server.use(bodyParser.urlencoded({ extended: false }))
 server.use(bodyParser.json())
-
-const routes = fs.readdirSync(path.resolve(__dirname, 'routes'))
 
 boot()
 
@@ -44,7 +45,7 @@ async function boot() {
     const root = '../client/dist'
     const index = 'index.html'
     server.use('/', express.static(root, { index }))
-    server.use(require('./dev/fallback')(index, { root }))
+    server.use(require('./utils/dev.route.fallback')(index, { root }))
   }
 
   server.use('/private', express.static('private'))

@@ -14,11 +14,13 @@ module.exports = function ({ router }) {
       return res.json(results)
     })
 
-    .post('/register', async function (req, res, next) {
+    .post('/register', check({
+      body: {
+        username: joi.string().required(),
+        password: joi.string().required(),
+      }
+    }), async function (req, res, next) {
       const { username, password } = req.body
-
-      if (!username || !password)
-        return next('username and password required')
 
       const isUserExist = await Users.findOne({ username })
 
@@ -49,11 +51,13 @@ module.exports = function ({ router }) {
       return res.json({ result })
     })
 
-    .post('/login', async function (req, res, next) {
+    .post('/login', check({
+      body: {
+        username: joi.string().required(),
+        password: joi.string().required(),
+      }
+    }), async function (req, res, next) {
       const { username, password } = req.body
-
-      if (!username || !password)
-        return next('require username and password')
 
       const isUserExist = await Users.findOne({ username })
 
@@ -84,11 +88,12 @@ module.exports = function ({ router }) {
       return res.json({ result })
     })
 
-    .post('/token', async function (req, res, next) {
+    .post('/token', check({
+      body: {
+        token: joi.string().required(),
+      }
+    }), async function (req, res, next) {
       const { token } = req.body
-
-      if (!token)
-        return next('token required')
 
       const isTokenExist = await Users.findOne({ 'services.tokens.token': token })
 
@@ -120,20 +125,18 @@ module.exports = function ({ router }) {
       return res.json({ result })
     })
 
-    .post('/password', async function (req, res, next) {
+    .post('/password', check({
+      body: {
+        password: joi.string().required(),
+        newPassword: joi.string().required(),
+      }
+    }), async function (req, res, next) {
       const { password, newPassword } = req.body
-
-      if (!password || !newPassword)
-        return next('password and newPassword required')
-
-      console.log(this.currentUser)
 
       if (!this.currentUser)
         return next('failed to change password')
 
       const { _id } = this.currentUser
-
-      console.log(_id)
 
       const isUserExist = await Users.findOne({ _id })
 
