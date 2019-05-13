@@ -22,12 +22,21 @@ import {
   About,
   Users,
   Files,
-  List,
+  Lists,
 } from './'
 
 app.route = createBrowserHistory({})
 
-app.route.listen(function () {})
+app.route.listen(function () {
+  app.location.search = app.route.location.search
+  app.location.hash = app.route.location.hash
+  console.log(app.location)
+})
+
+app.location = observable({
+  search: app.route.location.search,
+  hash: app.route.location.hash,
+})
 
 class Root extends Component {
   state = {
@@ -64,7 +73,7 @@ class Root extends Component {
             <Route path='/my' component={My |> Layout |> Auth} />
             <Route path='/users' component={Users |> Layout |> Auth} />
             <Route path='/files' component={Files |> Layout |> Auth} />
-            <Route path='/list' component={List |> Layout |> Auth} />
+            <Route path='/lists' component={Lists |> Layout |> Auth} />
             <Route component={NotFound} />
           </Switch>
         </Router>

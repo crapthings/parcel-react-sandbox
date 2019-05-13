@@ -16,6 +16,9 @@ module.exports = async function () {
   db.users = db.collection('users')
   db.files = db.collection('files')
 
+  db.lists = db.collection('lists')
+  db.items = db.collection('items')
+
   createIndexes(db)
 
   return db

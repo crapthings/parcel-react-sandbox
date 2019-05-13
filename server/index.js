@@ -32,13 +32,15 @@ boot()
 async function boot() {
   db = await require('./db')()
 
+  require('./db/init')
+
   // auth hook
   server.use(require('./hooks/auth'))
 
   // mount each router
   _.each(routes, route => {
     const __module__ = path.resolve(__dirname, 'routes', route)
-    server.use('/api', require(__module__)({ router }))
+    server.use('/api/v1', require(__module__)({ router }))
   })
 
   if (process.env.NODE_ENV !== 'production') {

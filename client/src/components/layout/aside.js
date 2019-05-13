@@ -8,11 +8,11 @@ export default class Aside extends Component {
         </div>
 
         <div>
-          <Link to='/list'>list</Link>
+          <Link to='/files'>files</Link>
         </div>
 
         <div>
-          <Link to='/files'>files</Link>
+          <Link to='/lists'>lists</Link>
         </div>
       </div>
     )
