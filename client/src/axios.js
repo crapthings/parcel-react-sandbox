@@ -1,7 +1,7 @@
 import _axios from 'axios'
 
 app.axios = _axios.create({
-  baseURL: '/api/v1',
+  baseURL: 'http://localhost:3000/api/v1',
   timeout: 5000,
 })
 

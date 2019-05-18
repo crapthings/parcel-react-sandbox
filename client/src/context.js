@@ -23,4 +23,5 @@ export const App = {
 
 export default {
   app,
+  App,
 }
