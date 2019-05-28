@@ -30,7 +30,6 @@ app.route = createBrowserHistory({})
 app.route.listen(function () {
   app.location.search = app.route.location.search
   app.location.hash = app.route.location.hash
-  console.log(app.location)
 })
 
 app.location = observable({

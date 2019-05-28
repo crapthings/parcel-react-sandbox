@@ -1,8 +1,11 @@
 _ = require('lodash')
 moment = require('moment')
+nanoid = require('nanoid')
+faker = require('faker')
 
 React = require('react')
 Component = React.Component
+Fragment = React.Fragment
 
 autorun = require('mobx').autorun
 observable = require('mobx').observable
