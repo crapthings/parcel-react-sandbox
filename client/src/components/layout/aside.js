@@ -2,7 +2,7 @@
 export default class Aside extends Component {
   render() {
     return (
-      <div id='aside'>
+      <div className='flex-column' id='aside'>
         <div>
           <Link to='/'>home</Link>
         </div>

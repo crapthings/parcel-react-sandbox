@@ -12,7 +12,7 @@ export default class Header extends Component {
         {currentUser.username ? (
           <>
             <div>
-              <Link to='/'>logo</Link>
+              <Link to='/'>Parcel React Sandbox</Link>
             </div>
             <div className='flex flex-1'></div>
             <div className='flex'>
