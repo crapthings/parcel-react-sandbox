@@ -28,6 +28,10 @@ export default class Login extends Component {
           <div>
             <input type='submit' value='Login' />
           </div>
+
+          <div>
+            <Link to='/register'>Register</Link>
+          </div>
         </form>
         <div>{app.ui.err}</div>
       </div>

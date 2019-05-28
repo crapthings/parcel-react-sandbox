@@ -12,7 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
-    "@material-ui/core": "^3.9.3",
+    "@material-ui/core": "^4.0.1",
     "axios": "^0.18.0",
     "faker": "^4.1.0",
     "history": "^4.9.0",
