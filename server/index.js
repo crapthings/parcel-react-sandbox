@@ -15,6 +15,7 @@ axios = require('axios')
 joi = require('@hapi/joi')
 
 db = null
+_routes = null
 check = require('./utils/helpers').check
 
 const PORT = process.env.PORT || 3000
@@ -54,6 +55,8 @@ async function boot() {
 
   // error hook
   server.use(require('./hooks/error'))
+
+  _routes = _.map(router.stack, 'route.path')
 
   server.listen(PORT, async () => {
     console.log(`server is running at ${PORT}`)

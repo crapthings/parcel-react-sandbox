@@ -1,6 +1,10 @@
 const Users = db.collection('users')
 
 module.exports = async function (req, res, next) {
+  const apiName = '/' + _.chain(req.path).split('/').last().value()
+
+  if (!_.includes(_routes, apiName)) return next()
+
   if (!/^\/api/.test(req.url) || _.includes([
     '/api/v1/status',
     '/api/v1/register',
