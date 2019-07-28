@@ -6,8 +6,6 @@ import {
   Switch,
 } from 'react-router-dom'
 
-import { AxiosProvider } from 'react-axios'
-
 import {
   NotFound,
   Err,
@@ -46,20 +44,18 @@ class Root extends Component {
     const { error } = this.state
 
     return error ? <Err /> : (
-      <AxiosProvider instance={app.axios}>
-        <Router history={app.route}>
-          <Switch>
-            <Route path='/' component={Home |> Layout |> Auth} exact />
-            <Route path='/index.html' component={Home |> Layout |> Auth} />
-            <Route path='/login' component={Login} />
-            <Route path='/register' component={Register} />
-            <Route path='/my' component={My |> Layout |> Auth} />
-            <Route path='/files' component={Files |> Layout |> Auth} />
-            <Route path='/users' component={Users |> Layout |> Auth} />
-            <Route component={NotFound} />
-          </Switch>
-        </Router>
-      </AxiosProvider>
+      <Router history={app.route}>
+        <Switch>
+          <Route path='/' component={Home |> Layout |> Auth} exact />
+          <Route path='/index.html' component={Home |> Layout |> Auth} />
+          <Route path='/login' component={Login} />
+          <Route path='/register' component={Register} />
+          <Route path='/my' component={My |> Layout |> Auth} />
+          <Route path='/files' component={Files |> Layout |> Auth} />
+          <Route path='/users' component={Users |> Layout |> Auth} />
+          <Route component={NotFound} />
+        </Switch>
+      </Router>
     )
   }
 }

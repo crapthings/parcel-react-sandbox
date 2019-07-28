@@ -14,11 +14,19 @@ module.exports = function ({ router }) {
       return res.json({ result })
     })
 
-    .post('/upload', upload.array('file'), async function (req, res) {
+    .post('/files', upload.array('file'), async function (req, res) {
       if (_.isEmpty(req.files)) return next('no files')
       const { ops: files } = await Files.insertMany(req.files)
       const result = { files }
       return res.json({ result })
+    })
+
+    .delete('/files', async function (req, res) {
+      console.log(req.body)
+      const _id = ObjectId(req.body._id)
+      const op = await Files.removeOne({ _id })
+      console.log(op)
+      return res.json()
     })
 
     .post('/avatar', upload.single('file'), async function (req, res, next) {

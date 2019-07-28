@@ -6,6 +6,7 @@ const path = require('path')
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const pino = require('express-pino-logger')()
 
 _ = require('lodash')
 moment = require('moment')
@@ -14,6 +15,7 @@ faker = require('faker')
 axios = require('axios')
 joi = require('@hapi/joi')
 
+ObjectId = require('mongodb').ObjectId
 db = null
 _routes = null
 check = require('./utils/helpers').check
@@ -24,6 +26,7 @@ const server = express()
 const router = express.Router()
 const routes = fs.readdirSync(path.resolve(__dirname, 'routes'))
 
+server.use(pino)
 server.use(cors())
 server.use(bodyParser.urlencoded({ extended: false }))
 server.use(bodyParser.json())
@@ -57,6 +60,8 @@ async function boot() {
   server.use(require('./hooks/error'))
 
   _routes = _.map(router.stack, 'route.path')
+
+  
 
   server.listen(PORT, async () => {
     console.log(`server is running at ${PORT}`)

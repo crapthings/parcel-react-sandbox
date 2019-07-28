@@ -20,4 +20,5 @@ Link = require('react-router-dom').Link
 
 Axios = require('./components/common/axios').default
 require('./components/routes')
-require('./auth')
+
+app.loginWithToken()
