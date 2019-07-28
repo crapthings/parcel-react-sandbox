@@ -10,18 +10,18 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@hapi/joi": "^15.0.2",
-    "axios": "^0.18.0",
+    "@hapi/joi": "^15.1.0",
+    "axios": "^0.18.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "dotenv": "^7.0.0",
-    "express": "^4.16.4",
+    "express": "^4.17.1",
     "faker": "^4.1.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.15",
     "moment": "^2.24.0",
-    "mongodb": "^3.2.3",
-    "multer": "^1.4.1",
-    "nanoid": "^2.0.1"
+    "mongodb": "^3.2.7",
+    "multer": "^1.4.2",
+    "nanoid": "^2.0.3"
   }
 }
