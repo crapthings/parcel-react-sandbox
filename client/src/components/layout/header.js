@@ -6,7 +6,7 @@ export default class Header extends Component {
   }
 
   render() {
-    const { currentUser } = app.ctx
+    const { currentUser } = app
     return (
       <div className='flex' id='header'>
         {currentUser.username ? (

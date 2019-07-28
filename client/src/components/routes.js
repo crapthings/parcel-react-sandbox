@@ -1,5 +1,3 @@
-import { createBrowserHistory } from 'history'
-
 import { render } from 'react-dom'
 
 import {
@@ -19,24 +17,9 @@ import {
   Login,
   My,
   Home,
-  About,
-  Users,
   Files,
-  Lists,
-  Statistics,
+  Users,
 } from './'
-
-app.route = createBrowserHistory({})
-
-app.route.listen(function () {
-  app.location.search = app.route.location.search
-  app.location.hash = app.route.location.hash
-})
-
-app.location = observable({
-  search: app.route.location.search,
-  hash: app.route.location.hash,
-})
 
 class Root extends Component {
   state = {
@@ -71,10 +54,8 @@ class Root extends Component {
             <Route path='/login' component={Login} />
             <Route path='/register' component={Register} />
             <Route path='/my' component={My |> Layout |> Auth} />
-            <Route path='/users' component={Users |> Layout |> Auth} />
             <Route path='/files' component={Files |> Layout |> Auth} />
-            <Route path='/lists' component={Lists |> Layout |> Auth} />
-            <Route path='/statistics' component={Statistics} />
+            <Route path='/users' component={Users |> Layout |> Auth} />
             <Route component={NotFound} />
           </Switch>
         </Router>

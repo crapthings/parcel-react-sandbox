@@ -33,7 +33,7 @@ export default class Login extends Component {
             <Link to='/register'>Register</Link>
           </div>
         </form>
-        <div>{app.ui.err}</div>
+        <div>{app.err}</div>
       </div>
     )
   }

@@ -12,7 +12,7 @@ export default class Aside extends Component {
         </div>
 
         <div>
-          <Link to='/lists'>lists</Link>
+          <Link to='/users'>users</Link>
         </div>
       </div>
     )

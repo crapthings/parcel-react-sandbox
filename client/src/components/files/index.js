@@ -6,11 +6,10 @@ export default class List extends Component {
     return (
       <div>
         <Uploader />
-        <App.Axios name='files' url='files'>
-          {({ result: { files } }, { refresh, refreshToken }) => {
+        <Axios name='files' url='files'>
+          {({ result: { files } }) => {
             return (
               <div>
-                <button onClick={refresh}>refresh {refreshToken}</button>
                 <table>
                   <thead>
                     <tr>
@@ -30,7 +29,7 @@ export default class List extends Component {
               </div>
             )
           }}
-        </App.Axios>
+        </Axios>
       </div>
     )
   }

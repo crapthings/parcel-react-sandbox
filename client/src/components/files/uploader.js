@@ -9,7 +9,7 @@ export default class Uploader extends Component {
     const { files } = evt.target[0]
 
     if (_.isEmpty(files)) {
-      return app.ui.err = 'no files were found'
+      return app.err = 'no files were found'
     }
 
     const data = new FormData()
@@ -25,7 +25,7 @@ export default class Uploader extends Component {
     })
 
     if (err) {
-      return app.ui.err = err
+      return app.err = err
     }
   }
 
