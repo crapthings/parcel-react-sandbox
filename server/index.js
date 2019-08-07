@@ -26,7 +26,7 @@ const server = express()
 const router = express.Router()
 const routes = fs.readdirSync(path.resolve(__dirname, 'routes'))
 
-server.use(pino)
+// server.use(pino)
 server.use(cors())
 server.use(bodyParser.urlencoded({ extended: false }))
 server.use(bodyParser.json())
@@ -48,7 +48,7 @@ async function boot() {
   })
 
   if (process.env.NODE_ENV !== 'production') {
-    const root = '../client/dist'
+    const root = './static'
     const index = 'index.html'
     server.use('/', express.static(root, { index }))
     server.use(require('./utils/dev.route.fallback')(index, { root }))
@@ -60,8 +60,6 @@ async function boot() {
   server.use(require('./hooks/error'))
 
   _routes = _.map(router.stack, 'route.path')
-
-  
 
   server.listen(PORT, async () => {
     console.log(`server is running at ${PORT}`)

@@ -1,19 +1,23 @@
+import  * as something from 'mobx-react-lite'
+
+console.log(something)
+
 export default function Axios(func) {
-  return function decorator(WrappedComponent) {
+
+  const hoc = component => props => {
+
     @observer
-    class WrapperComponent extends WrappedComponent {
+    class component extends Component {
       @observable loading = true
       @observable err = null
       @observable result = null
 
-      componentWillMount() {
+      componentDidMount() {
         this.fetch()
-        if (WrappedComponent.prototype.componentWillMount) {
-          WrappedComponent.prototype.componentWillMount.apply(this, arguments)
-        }
       }
 
-      @action fetch = async () => {
+      @action
+      fetch = async () => {
         const { data: { err, result } } = await func()
 
         if (err) {
@@ -38,10 +42,19 @@ export default function Axios(func) {
         } else if (this.err) {
           return this.renderErr()
         } else {
-          return WrappedComponent.prototype.render.apply(this, arguments)
+          return component.prototype.render.apply(this, arguments)
         }
       }
     }
-    return WrapperComponent
+
+    const newProps = {
+      ...props,
+    }
+
+    return createElement(component, props)
+
   }
+
+  return hoc
+
 }

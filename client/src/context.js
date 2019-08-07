@@ -13,7 +13,8 @@ export const app = new class {
   @observable isLogging = true
   @observable currentUser = null
 
-  @action async register(username, password) {
+  @action
+  async register(username, password) {
     this.isLogging = true
 
     const { data: { err, result } } = await this.axios.post('/register', { username, password })
@@ -31,7 +32,8 @@ export const app = new class {
     this.route.replace('/')
   }
 
-  @action async loginWithToken() {
+  @action
+  async loginWithToken() {
     const token = localStorage.getItem('token')
 
     if (!token) {
@@ -54,7 +56,8 @@ export const app = new class {
     this.isLogging = false
   }
 
-  @action async login(username, password) {
+  @action
+  async login(username, password) {
     this.isLogging = true
 
     const { data: { err, result } } = await this.axios.post('/login', { username, password })
@@ -72,23 +75,19 @@ export const app = new class {
     this.route.replace('/')
   }
 
-  @action logout() {
+  @action
+  logout() {
+    localStorage.removeItem('token')
     this.currentUser = null
     this.isLogging = false
     this.route.replace('/')
   }
 
-  @action async changePassword(password, newPassword) {
+  async changePassword(password, newPassword) {
     const { data: { err } } = await this.axios.post('/password', { password, newPassword })
-
     if (err) {
-      this.isLogging = false
-      return this.err = err
+      this.err = err
     }
-
-    this.currentUser = null
-    this.isLogging = false
-    this.route.replace('/')
   }
 }
 

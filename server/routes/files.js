@@ -14,7 +14,7 @@ module.exports = function ({ router }) {
       return res.json({ result })
     })
 
-    .post('/files', upload.array('file'), async function (req, res) {
+    .post('/files', upload.array('file'), async function (req, res, next) {
       if (_.isEmpty(req.files)) return next('no files')
       const { ops: files } = await Files.insertMany(req.files)
       const result = { files }

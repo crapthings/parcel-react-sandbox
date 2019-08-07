@@ -4,7 +4,7 @@
   "description": "",
   "main": "parcel.js",
   "scripts": {
-    "dev": "parcel ./src/index.html",
+    "dev": "parcel ./src/index.html --out-dir ../server/static",
     "build": "parcel build ./src/index.js"
   },
   "keywords": [],
@@ -12,7 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
-    "@material-ui/core": "^4.2.1",
+    "@material-ui/core": "^4.3.1",
     "axios": "^0.18.1",
     "faker": "^4.1.0",
     "history": "^4.9.0",
@@ -26,6 +26,7 @@
     "react": "^16.8.6",
     "react-axios": "^2.0.3",
     "react-dom": "^16.8.6",
+    "react-mobx": "0.0.4",
     "react-router-dom": "^5.0.1",
     "styled-components": "^4.3.2"
   },
