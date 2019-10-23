@@ -1,12 +1,15 @@
+// import deepstream from '@deepstream/client'
 import { createBrowserHistory } from 'history'
 import axios from 'axios'
 
 export const app = new class {
+  // dsclient = deepstream('localhost:6020')
+
   route = createBrowserHistory({})
 
   axios = axios.create({
-    baseURL: 'http://localhost:3000/api/v1',
-    timeout: 5000,
+    baseURL: process.env.ROOT_URL ? `${process.env.ROOT_URL}/api/v1` : 'http://localhost:3000/api/v1',
+    timeout: 0,
   })
 
   @observable err = null

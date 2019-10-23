@@ -11,6 +11,10 @@ module.exports = async function (req, res, next) {
     '/api/v1/login',
     '/api/v1/token',
     '/api/v1/logs',
+    '/api/v1/dashboard',
+    '/api/v1/screen2',
+    '/api/v1/screen3',
+    '/api/v1/test',
   ], req.url)) {
     return next()
   }

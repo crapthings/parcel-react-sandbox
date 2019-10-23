@@ -1,3 +1,5 @@
+Sugar = require('sugar')
+Sugar.extend()
 _ = require('lodash')
 moment = require('moment')
 nanoid = require('nanoid')
@@ -15,10 +17,12 @@ observer = require('mobx-react').observer
 
 app = require('./context').app
 
+// app.dsclient.login()
+
 // MUI = require('@material-ui/core')
 Link = require('react-router-dom').Link
 
 Axios = require('./components/common/axios').default
 require('./components/routes')
 
-app.loginWithToken()
+// app.loginWithToken()

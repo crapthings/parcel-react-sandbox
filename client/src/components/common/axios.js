@@ -1,7 +1,3 @@
-import  * as something from 'mobx-react-lite'
-
-console.log(something)
-
 export default function Axios(func) {
 
   const hoc = component => props => {

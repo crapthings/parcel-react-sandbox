@@ -1,12 +1,40 @@
+$spacing = 16
+
 .flex
   display flex
 
+.flex-row
+  display flex
+  flex-flow row
+
 .flex-column
+  display flex
   flex-flow column
 
-.flex-1
-  flex 1
+.flex-right:not(.flex-row)
+  align-items flex-end
 
-.flex-center
-  align-items center
-  justify-content center
+for num in 1...12
+  .flex-{num}x
+    flex num
+
+.mgt
+  margin-top ($spacing)px
+
+.mgt-md
+  margin-top ($spacing * 2)px
+
+.mgr
+  margin-right ($spacing)px
+
+.mgb
+  margin-bottom ($spacing)px
+
+.pd
+  padding ($spacing)px
+
+.pd-md
+  padding ($spacing * 2)px
+
+.pd-sm
+  padding ($spacing / 2)px

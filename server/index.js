@@ -7,18 +7,30 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const pino = require('express-pino-logger')()
+// const { Deepstream } = require('@deepstream/server')
 
 _ = require('lodash')
+require('deepdash')(_)
+sugar = require('sugar')
 moment = require('moment')
 nanoid = require('nanoid')
 faker = require('faker')
 axios = require('axios')
 joi = require('@hapi/joi')
+JSON5 = require('json5')
+XRegExp = require('xregexp')
 
 ObjectId = require('mongodb').ObjectId
 db = null
+cachedb = null
 _routes = null
 check = require('./utils/helpers').check
+
+sugar.extend()
+
+moment.createFromInputFallback = function(config) {
+  config._d = new Date(config._i)
+}
 
 const PORT = process.env.PORT || 3000
 
@@ -31,15 +43,21 @@ server.use(cors())
 server.use(bodyParser.urlencoded({ extended: false }))
 server.use(bodyParser.json())
 
+// dsserver = new Deepstream()
+// dsserver.start()
+
 boot()
 
 async function boot() {
-  db = await require('./db')()
+  const database = await require('./db')()
 
-  require('./db/init')
+  db = database.db
+  cachedb = database.cachedb
+
+  // require('./db/init')
 
   // auth hook
-  server.use(require('./hooks/auth'))
+  // server.use(require('./hooks/auth'))
 
   // mount each router
   _.each(routes, route => {
