@@ -18,7 +18,7 @@
     "ag-grid-community": "^21.2.2",
     "ag-grid-enterprise": "^21.2.2",
     "ag-grid-react": "^21.2.2",
-    "axios": "^0.18.1",
+    "axios": "^0.21.1",
     "chart.js": "^2.8.0",
     "chromatism": "^3.0.0",
     "faker": "^4.1.0",
