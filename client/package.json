@@ -27,7 +27,7 @@
     "history": "^4.9.0",
     "jQuery": "^1.7.4",
     "jquery-ui": "^1.12.1",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "mobx": "^5.13.0",
     "mobx-react": "^5.4.4",
     "mobx-react-lite": "^1.4.1",
