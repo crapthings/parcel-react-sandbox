@@ -31,7 +31,7 @@
     "mobx": "^5.13.0",
     "mobx-react": "^5.4.4",
     "mobx-react-lite": "^1.4.1",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "nanoid": "^2.0.3",
     "plotly.js": "^1.50.0",
     "pretty-bytes": "^5.3.0",
